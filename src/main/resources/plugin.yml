@@ -1,0 +1,11 @@
+name: ${project.name}
+main: ${project.groupId}.${project.artifactId}.${project.name}
+description: ${project.description}
+version: ${project.version}
+author: Rayzr
+
+commands:
+    energy:
+        description: Main command for EnergyPoints
+        aliases: [en, zap]
+        usage: "\u00A7cRayzr borked something big."

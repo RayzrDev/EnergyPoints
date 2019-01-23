@@ -1,0 +1,11 @@
+API:
+- Locale system
+- ItemFactory system
+- GUI system
+- Config handling for more dynamic saving/loading
+  - Support for GUIs
+- Input prompt systems
+
+Mechanics:
+- Listeners for playing to give energy
+  - System to map activities to energy

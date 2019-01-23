@@ -4,6 +4,7 @@ import me.rayzr522.energypoints.EnergyPoints;
 import me.rayzr522.energypoints.type.PlayerData;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,5 +42,13 @@ public class PlayerDataManager {
         playerDataMap.forEach((id, playerData) -> playerData.saveTo(config.createSection(id.toString())));
 
         return config;
+    }
+
+    /**
+     * @param player The player to get the data for.
+     * @return That player's data.
+     */
+    public PlayerData getPlayerData(Player player) {
+        return playerDataMap.computeIfAbsent(player.getUniqueId(), PlayerData::new);
     }
 }

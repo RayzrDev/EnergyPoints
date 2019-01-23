@@ -1,5 +1,6 @@
 package me.rayzr522.energypoints;
 
+import me.rayzr522.energypoints.command.EnergyCommand;
 import me.rayzr522.energypoints.data.PlayerDataManager;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -22,6 +23,9 @@ public class EnergyPoints extends JavaPlugin {
         instance = this;
 
         reload();
+
+        // TODO: Dynamically register
+        getCommand("energy").setExecutor(new EnergyCommand());
     }
 
     @Override
@@ -64,5 +68,12 @@ public class EnergyPoints extends JavaPlugin {
 
     public File getFile(String path) {
         return new File(getDataFolder(), path.replace('/', File.separatorChar));
+    }
+
+    /**
+     * @return The player data manager instance for this plugin.
+     */
+    public PlayerDataManager getPlayerDataManager() {
+        return playerDataManager;
     }
 }

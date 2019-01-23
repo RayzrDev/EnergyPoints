@@ -66,7 +66,13 @@ public abstract class AbstractCommand implements CommandExecutor {
         return true;
     }
 
-    public abstract void onCommand(CommandSender commandSender, String[] args);
+    /**
+     * Called when this command is run.
+     *
+     * @param sender The user who executed the command.
+     * @param args   The args that were passed tot he command.
+     */
+    public abstract void onCommand(CommandSender sender, String[] args);
 
     /**
      * @return The name of this command.
@@ -108,6 +114,15 @@ public abstract class AbstractCommand implements CommandExecutor {
      */
     public Set<AbstractCommand> getChildren() {
         return children;
+    }
+
+    /**
+     * Adds a command to this command's list of children.
+     *
+     * @param childCommand The child command to add.
+     */
+    public void addChild(AbstractCommand childCommand) {
+        children.add(childCommand);
     }
 
     /**

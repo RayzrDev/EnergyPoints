@@ -14,7 +14,11 @@ public class PlayerData {
     private int energy;
     private List<Booster> activeBoosters;
 
-    public PlayerData(UUID uuid, int energy, List<Booster> activeBoosters) {
+    public PlayerData(UUID uuid) {
+        this(uuid, 0, new ArrayList<>());
+    }
+
+    private PlayerData(UUID uuid, int energy, List<Booster> activeBoosters) {
         this.uuid = uuid;
         this.energy = energy;
         this.activeBoosters = activeBoosters;

@@ -1,9 +1,11 @@
 package me.rayzr522.energypoints;
 
+import me.rayzr522.energypoints.data.PlayerDataManager;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.logging.Level;
 
 public class EnergyPoints extends JavaPlugin {
@@ -12,6 +14,8 @@ public class EnergyPoints extends JavaPlugin {
     public static EnergyPoints getInstance() {
         return instance;
     }
+
+    private PlayerDataManager playerDataManager = new PlayerDataManager(this);
 
     @Override
     public void onEnable() {
@@ -35,11 +39,19 @@ public class EnergyPoints extends JavaPlugin {
         saveDefaultConfig();
         reloadConfig();
 
-        // TODO: load data handlers
+        playerDataManager.load(getConfig("players.yml"));
     }
 
     public void save() {
-        // TODO: save data handlers
+        saveConfig("players.yml", playerDataManager.save());
+    }
+
+    public void saveConfig(String path, YamlConfiguration config) {
+        try {
+            config.save(getFile(path));
+        } catch (IOException e) {
+            getLogger().log(Level.SEVERE, String.format("Failed to save config '%s'", path), e);
+        }
     }
 
     public YamlConfiguration getConfig(String path) {

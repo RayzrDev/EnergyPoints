@@ -1,17 +1,16 @@
 package me.rayzr522.energypoints.api.command;
 
-import org.bukkit.ChatColor;
+import me.rayzr522.energypoints.api.locale.LocaleStrings;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
-public abstract class AbstractCommand implements CommandExecutor {
+public abstract class AbstractCommand implements CommandExecutor, TabCompleter {
     private final String name;
     private final String permission;
     private final String usage;
@@ -30,8 +29,7 @@ public abstract class AbstractCommand implements CommandExecutor {
 
     private void handleCommand(CommandSender sender, String[] args) {
         if (!sender.hasPermission(permission)) {
-            // TODO: Translate
-            sender.sendMessage(ChatColor.RED + "You don't have permission to use this command!");
+            LocaleStrings.NO_PERMISSION.send(sender, permission);
             return;
         }
 
@@ -45,8 +43,7 @@ public abstract class AbstractCommand implements CommandExecutor {
         }
 
         if (playersOnly && !(sender instanceof Player)) {
-            // TODO: Translate
-            sender.sendMessage(ChatColor.RED + "Only players can use this!");
+            LocaleStrings.ONLY_PLAYERS.send(sender);
             return;
         }
 
@@ -57,7 +54,33 @@ public abstract class AbstractCommand implements CommandExecutor {
 
     public void showUsage(CommandSender sender) {
         // TODO: Handle sub commands -- recursion?
-        sender.sendMessage(ChatColor.RED + "Usage: " + ChatColor.GRAY + "/" + name + " " + ChatColor.YELLOW + usage + ChatColor.DARK_GRAY + " - " + ChatColor.YELLOW + description);
+        LocaleStrings.INVALID_USAGE.send(sender, name, usage, description);
+    }
+
+    @Override
+    public final List<String> onTabComplete(CommandSender sender, Command command, String s, String[] args) {
+        if (args.length == 1 && children.size() > 0) {
+            return children.stream()
+                    .filter(child -> child.getName().toLowerCase().startsWith(args[0].toLowerCase()))
+                    .map(AbstractCommand::getName)
+                    .collect(Collectors.toList());
+        } else if (args.length == 2) {
+            return findSubCommand(args[0])
+                    .map(child -> child.onTabComplete(sender, command, s, Arrays.copyOfRange(args, 1, args.length)))
+                    .orElse(tabComplete(sender, args));
+        }
+
+        return tabComplete(sender, args);
+    }
+
+    /**
+     * Provides tab completion options for the given context.
+     *
+     * @param sender The sender who is tab completing.
+     * @param args   The current args.
+     */
+    public List<String> tabComplete(CommandSender sender, String[] args) {
+        return null;
     }
 
     @Override

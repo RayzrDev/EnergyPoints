@@ -1,0 +1,14 @@
+prefix: "&b"
+
+error:
+    prefix-addon: "&c"
+    no-permission: "You need the permission '%s' to do that!"
+    command:
+        prefix-addon: "&c"
+        only-players: "Only players can use this command!"
+        invalid-usage: "Usage: &7/%s &e%s &8- &e%s"
+        unknown-player: "The player '%s' could not be found!"
+
+command:
+    energy:
+        info: "Energy: &e%d"

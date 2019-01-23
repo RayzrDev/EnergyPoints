@@ -1,5 +1,6 @@
 package me.rayzr522.energypoints;
 
+import me.rayzr522.energypoints.api.locale.Locale;
 import me.rayzr522.energypoints.command.EnergyCommand;
 import me.rayzr522.energypoints.data.PlayerDataManager;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -12,11 +13,12 @@ import java.util.logging.Level;
 public class EnergyPoints extends JavaPlugin {
     private static EnergyPoints instance;
 
+    private final Locale locale = new Locale();
+    private final PlayerDataManager playerDataManager = new PlayerDataManager(this);
+
     public static EnergyPoints getInstance() {
         return instance;
     }
-
-    private PlayerDataManager playerDataManager = new PlayerDataManager(this);
 
     @Override
     public void onEnable() {
@@ -25,7 +27,10 @@ public class EnergyPoints extends JavaPlugin {
         reload();
 
         // TODO: Dynamically register
-        getCommand("energy").setExecutor(new EnergyCommand());
+        EnergyCommand energyCommand = new EnergyCommand();
+
+        getCommand("energy").setExecutor(energyCommand);
+        getCommand("energy").setTabCompleter(energyCommand);
     }
 
     @Override
@@ -43,6 +48,7 @@ public class EnergyPoints extends JavaPlugin {
         saveDefaultConfig();
         reloadConfig();
 
+        locale.load(getConfig("messages.yml"));
         playerDataManager.load(getConfig("players.yml"));
     }
 
@@ -75,5 +81,9 @@ public class EnergyPoints extends JavaPlugin {
      */
     public PlayerDataManager getPlayerDataManager() {
         return playerDataManager;
+    }
+
+    public Locale getLocale() {
+        return locale;
     }
 }

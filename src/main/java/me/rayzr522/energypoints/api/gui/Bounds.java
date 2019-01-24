@@ -55,4 +55,14 @@ public class Bounds {
     public boolean isWithinBounds(int x, int y) {
         return x >= this.x && x <= this.x + this.width && y >= this.y && y <= this.y + this.height;
     }
+
+    @Override
+    public String toString() {
+        return "Bounds{" +
+                "x=" + x +
+                ", y=" + y +
+                ", width=" + width +
+                ", height=" + height +
+                '}';
+    }
 }

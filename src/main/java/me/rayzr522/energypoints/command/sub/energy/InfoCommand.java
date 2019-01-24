@@ -1,9 +1,8 @@
 package me.rayzr522.energypoints.command.sub.energy;
 
-import me.rayzr522.energypoints.EnergyPoints;
 import me.rayzr522.energypoints.api.command.AbstractCommand;
 import me.rayzr522.energypoints.api.locale.LocaleStrings;
-import me.rayzr522.energypoints.type.PlayerData;
+import me.rayzr522.energypoints.gui.InfoGui;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -24,8 +23,10 @@ public class InfoCommand extends AbstractCommand {
             return;
         }
 
-        PlayerData playerData = EnergyPoints.getInstance().getPlayerDataManager().getPlayerData(target);
+        new InfoGui(target).open(target);
 
-        LocaleStrings.COMMAND_ENERGY_INFO.send(sender, playerData.getEnergy());
+//        PlayerData playerData = EnergyPoints.getInstance().getPlayerDataManager().getPlayerData(target);
+//
+//        LocaleStrings.COMMAND_ENERGY_INFO.send(sender, playerData.getEnergy());
     }
 }

@@ -12,3 +12,14 @@ error:
 command:
     energy:
         info: "Energy: &e%d"
+
+gui:
+    info:
+        prefix: ""
+        name: "&3User Info for &9&l%s"
+        energy-status:
+            prefix: ""
+            name: "&aEnergy: &b%d"
+            lore: |
+
+                &7&oClick here to buy more.

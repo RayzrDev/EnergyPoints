@@ -8,7 +8,12 @@ public enum LocaleStrings {
     ONLY_PLAYERS("error.command.only-players"),
     UNKNOWN_PLAYER("error.command.unknown-player"),
     INVALID_USAGE("error.command.invalid-usage"),
-    COMMAND_ENERGY_INFO("command.energy.info");
+    COMMAND_ENERGY_INFO("command.energy.info"),
+
+    // Info GUI
+    INFOGUI_NAME("gui.info.name"),
+    INFOGUI_ENERGYSTATUS_NAME("gui.info.energy-status.name"),
+    INFOGUI_ENERGYSTATUS_LORE("gui.info.energy-status.lore");
 
     private final String key;
 

@@ -17,14 +17,14 @@ public class Gui extends DefaultPanel implements InventoryHolder {
         inventory = Bukkit.createInventory(this, size, title);
     }
 
-    @Override
-    public Inventory getInventory() {
-        return inventory;
-    }
-
-    @Override
-    public RenderContext getRenderContext() {
-        return new GuiRenderContext(this);
+    /**
+     * Opens the inventory for a player.
+     *
+     * @param player The player to open the inventory for.
+     */
+    public void open(Player player) {
+        queueRender();
+        player.openInventory(inventory);
     }
 
     /**
@@ -36,7 +36,25 @@ public class Gui extends DefaultPanel implements InventoryHolder {
         // not needed by default
     }
 
+    /**
+     * Note: used internally, no need to ever call this. Used in the gui listener to notify a gui that it has been clicked.
+     *
+     * @param e The inventory click event that triggered this.
+     */
     public void handleClickEvent(InventoryClickEvent e) {
         onClick(new ClickEvent(this, e));
+    }
+
+    /**
+     * @return The raw inventory of this gui.
+     */
+    @Override
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    @Override
+    public RenderContext getRenderContext() {
+        return new GuiRenderContext(this);
     }
 }

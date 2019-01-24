@@ -1,6 +1,9 @@
 package me.rayzr522.energypoints.api.gui.impl;
 
-import me.rayzr522.energypoints.api.gui.*;
+import me.rayzr522.energypoints.api.gui.Bounds;
+import me.rayzr522.energypoints.api.gui.Component;
+import me.rayzr522.energypoints.api.gui.Panel;
+import me.rayzr522.energypoints.api.gui.RenderContext;
 import me.rayzr522.energypoints.api.gui.event.ClickEvent;
 
 import java.util.ArrayList;
@@ -54,7 +57,8 @@ public class DefaultPanel implements Panel {
     public Optional<Component> getChildAt(int x, int y) {
         return children.stream()
                 .filter(child -> child.getBounds().isWithinBounds(x, y))
-                .findFirst();
+                // Get last element of stream
+                .reduce((a, b) -> b);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package me.rayzr522.energypoints;
 
-import listeners.GuiListener;
+import me.rayzr522.energypoints.listeners.GuiListener;
 import me.rayzr522.energypoints.api.locale.Locale;
 import me.rayzr522.energypoints.command.EnergyCommand;
 import me.rayzr522.energypoints.data.PlayerDataManager;

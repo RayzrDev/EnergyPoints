@@ -1,4 +1,4 @@
-package listeners;
+package me.rayzr522.energypoints.listeners;
 
 import me.rayzr522.energypoints.api.gui.Gui;
 import org.bukkit.entity.Player;
@@ -13,6 +13,8 @@ public class GuiListener implements Listener {
         if (e.getInventory() == null || !(e.getWhoClicked() instanceof Player) || !(e.getInventory().getHolder() instanceof Gui)) {
             return;
         }
+
+        e.setCancelled(true);
 
         ((Gui) e.getInventory().getHolder()).handleClickEvent(e);
     }

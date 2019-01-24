@@ -1,5 +1,6 @@
 package me.rayzr522.energypoints;
 
+import listeners.GuiListener;
 import me.rayzr522.energypoints.api.locale.Locale;
 import me.rayzr522.energypoints.command.EnergyCommand;
 import me.rayzr522.energypoints.data.PlayerDataManager;
@@ -31,6 +32,8 @@ public class EnergyPoints extends JavaPlugin {
 
         getCommand("energy").setExecutor(energyCommand);
         getCommand("energy").setTabCompleter(energyCommand);
+
+        getServer().getPluginManager().registerEvents(new GuiListener(), this);
     }
 
     @Override

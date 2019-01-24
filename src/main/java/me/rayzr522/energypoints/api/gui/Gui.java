@@ -27,6 +27,15 @@ public class Gui extends DefaultPanel implements InventoryHolder {
         return new GuiRenderContext(this);
     }
 
+    /**
+     * Called when the inventory is closed.
+     *
+     * @param player The player who closed the inventory.
+     */
+    public void onClose(Player player) {
+        // not needed by default
+    }
+
     public void handleClickEvent(InventoryClickEvent e) {
         onClick(new ClickEvent(this, e));
     }

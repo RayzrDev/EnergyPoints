@@ -1,22 +1,20 @@
 package me.rayzr522.energypoints.api.gui.impl;
 
-import me.rayzr522.energypoints.api.gui.Bounds;
-import me.rayzr522.energypoints.api.gui.Component;
-import me.rayzr522.energypoints.api.gui.Panel;
-import me.rayzr522.energypoints.api.gui.RenderContext;
+import me.rayzr522.energypoints.api.gui.*;
 import me.rayzr522.energypoints.api.gui.event.ClickEvent;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class DefaultPanel implements Panel {
-    private final List<Component> children = new ArrayList<>();
+    private final Map<Point, Component> children = new HashMap<>();
     private final Bounds bounds;
     private Panel parent;
 
     /**
-     * Creates a new panel with the given bounds.
+     * Creates a new grid panel with the given bounds.
      *
      * @param bounds The bounds of the panel.
      */
@@ -43,17 +41,14 @@ public class DefaultPanel implements Panel {
         return children;
     }
 
-    @Override
-    public void addChild(Component child) {
+    public void addChild(Bounds bounds, Component child) {
         children.add(child);
     }
 
-    @Override
     public void removeChild(Component child) {
         children.remove(child);
     }
 
-    @Override
     public Optional<Component> getChildAt(int x, int y) {
         return children.stream()
                 .filter(child -> child.getBounds().isWithinBounds(x, y))
